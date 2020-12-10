@@ -1,17 +1,49 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+
+
+// clock component using class 
+class Clock extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {date: new Date()};
+  }
+
+  // life cyle mount method
+  // This is run when component gets loaded into the UI
+
+  componentDidMount() {
+    this.timerId = setInterval(
+      () => this.tick(),
+      1000
+    );
+  }
+
+  componwilldisconnect() {
+    clearInterval(this.timerId);
+  }
+
+  tick() {
+    this.setState(
+      {
+        date: new Date()
+      }
+    );
+  }
+  
+  render() {
+    return (
+      <div>
+        <h1>This is a clock</h1>
+        <h2>Current time is </h2>
+        <span>{this.state.date.toLocaleTimeString()}</span>
+      </div>
+    );
+  }
+}
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Clock />,
   document.getElementById('root')
-);
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+)
