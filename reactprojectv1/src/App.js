@@ -1,21 +1,47 @@
-import React from 'react';
-import endevour from './download.jpg'
-// import ReactDOM from 'react-dom';
-// storing image as a component
-const mirio_image=<img src={endevour} alt="mirio"></img>;
+import React ,{useState} from 'react'
 
-// const element=<img src={user.avatarUrl}></img>
-// this is a component
+// This is a counter app
 function App() {
-  // this is a function that returns an element
-  return (
-    <>
-      <h1>Display picture</h1>
-      {mirio_image}
-      
-    </>
-  );
+    
+    const [count,setCount] = useState(0);
+    console.log("function got re-rendered")
+    console.log(count)
+
+    function decrement1(){
+        // one way of calling setCount
+        console.log(count) 
+        setCount(count-1);
+        console.log(count)
+    }
+
+    function decrement_cnt1(){
+        console.log("dec1") 
+        console.log(count)
+        setCount(count => count-1);
+        console.log(count)
+    }
+
+    function increment_cnt(){
+        // one way of calling setCount
+        console.log(count)
+        console.log("inside increment_cnt")
+        setCount(count => count+1);
+        setCount(count => count+1);
+        console.log(count)
+        console.log("leaving increment_cnt")
+    }
+
+    
+
+
+    return (
+        <div>
+            <button onClick={decrement1}>Subtract</button>
+            <span>{count}</span>
+            <button onClick={increment_cnt}>Increment</button>
+            <button onClick={decrement_cnt1}>Functional_decrement</button>
+        </div>
+    )
 }
 
-
-export default App;
+export default App
