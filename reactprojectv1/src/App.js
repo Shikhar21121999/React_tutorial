@@ -14,13 +14,6 @@ function App() {
         console.log(count)
     }
 
-    function decrement_cnt1(){
-        console.log("dec1") 
-        console.log(count)
-        setCount(count => count-1);
-        console.log(count)
-    }
-
     function increment_cnt(){
         // one way of calling setCount
         console.log(count)
@@ -39,7 +32,6 @@ function App() {
             <button onClick={decrement1}>Subtract</button>
             <span>{count}</span>
             <button onClick={increment_cnt}>Increment</button>
-            <button onClick={decrement_cnt1}>Functional_decrement</button>
         </div>
     )
 }
