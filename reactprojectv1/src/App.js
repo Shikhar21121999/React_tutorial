@@ -1,39 +1,28 @@
 import React ,{useState} from 'react'
+import ComponentA from './ComponentA'
+import ComponentC from './ComponentC'
+
+export const MyContext=React.createContext("shikhar")
 
 // This is a counter app
-function App() {
+export default function App() {
+
+    const [name,setName]=useState("User")
+    const ANONYMOUS="Anonymous"
     
-    const [count,setCount] = useState(0);
-    console.log("function got re-rendered")
-    console.log(count)
-
-    function decrement1(){
-        // one way of calling setCount
-        console.log(count) 
-        setCount(count-1);
-        console.log(count)
+    function toggleIcognito(){
+        setName(ANONYMOUS)
     }
-
-    function increment_cnt(){
-        // one way of calling setCount
-        console.log(count)
-        console.log("inside increment_cnt")
-        setCount(count => count+1);
-        setCount(count => count+1);
-        console.log(count)
-        console.log("leaving increment_cnt")
-    }
-
-    
-
 
     return (
         <div>
-            <button onClick={decrement1}>Subtract</button>
-            <span>{count}</span>
-            <button onClick={increment_cnt}>Increment</button>
+            <MyContext.Provider value={name}>
+                <h>Hello</h>
+                <button onClick={toggleIcognito}>Make me anonymous</button>
+                <ComponentA />
+                <ComponentC />
+            </MyContext.Provider>
         </div>
     )
 }
 
-export default App
