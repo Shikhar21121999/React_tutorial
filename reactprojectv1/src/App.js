@@ -1,28 +1,36 @@
-import React ,{useState} from 'react'
-import ComponentA from './ComponentA'
-import ComponentC from './ComponentC'
+import React, {useState,useMemo,useEffect} from 'react';
 
-export const MyContext=React.createContext("shikhar")
+const App = () => {
+    const [number,setNumber] = useState(0)
+    const [dark,setDark] = useState(false)
+    const doubleNumber = useMemo(() => {
+        return slowFunction(number)
+    },[number])
+    const themeStyles =useMemo(() => 
+    {
 
-// This is a counter app
-export default function App() {
-
-    const [name,setName]=useState("User")
-    const ANONYMOUS="Anonymous"
-    
-    function toggleIcognito(){
-        setName(ANONYMOUS)
-    }
-
+        return {
+            backgroundColor: dark ? 'black' : 'white',
+            color: dark ? 'white' : 'black'
+            }
+    },[dark]) 
+    useEffect(() => {
+        console.log("effect gets called")
+    }, [themeStyles]);
     return (
-        <div>
-            <MyContext.Provider value={name}>
-                <h>Hello</h>
-                <button onClick={toggleIcognito}>Make me anonymous</button>
-                <ComponentA />
-                <ComponentC />
-            </MyContext.Provider>
-        </div>
-    )
+        <>
+            <input type="number" value={number} 
+            onChange={e => setNumber(parseInt(e.target.value))} />
+            <button onClick={()=> setDark(prevDark => !prevDark)}>Change Theme</button>
+            <div style={themeStyles}>{doubleNumber}</div>
+        </>
+    );
 }
 
+function slowFunction(num) {
+    console.log('Calling Slow Function')
+    for (let i=0; i<= 1000000000;i++) {}
+    return num*2
+}
+
+export default App;
